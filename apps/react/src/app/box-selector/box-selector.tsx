@@ -1,24 +1,18 @@
-import BoxSelectorRectangle from './box-selector-rectangle/box-selector-rectangle';
 import styles from './box-selector.module.scss';
+import BoxRangeSelector from "./box-range-selector/box-range-selector";
+import {useState} from "react";
 
 /* eslint-disable-next-line */
-export interface BoxSelectorProps {}
+export interface BoxSelectorProps {
+}
 
 export function BoxSelector(props: BoxSelectorProps) {
-  function onMouseDown() {
-    onMouseUp();
-    onMouseMove();
-  }
 
-  function onMouseMove() {}
+  const [boundary, setBoundary] = useState<HTMLElement>();
 
-  function onMouseUp() {
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('mouseup', onMouseUp);
-  }
-
-  window.addEventListener('mousedown', onMouseDown);
-
+  // setTimeout(() => {
+  //   setBoundary(document.documentElement);
+  // }, 2000)
   return (
     <div className={styles['container']}>
       <div className={styles['box-item-container']}>
@@ -26,7 +20,7 @@ export function BoxSelector(props: BoxSelectorProps) {
         <div className={styles['box-item']}></div>
         <div className={styles['box-item']}></div>
       </div>
-      <BoxSelectorRectangle></BoxSelectorRectangle>
+      <BoxRangeSelector boundary={boundary}></BoxRangeSelector>
     </div>
   );
 }

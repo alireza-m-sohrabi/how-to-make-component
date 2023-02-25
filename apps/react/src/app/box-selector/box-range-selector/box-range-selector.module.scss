@@ -1,0 +1,9 @@
+.container {
+  box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid #d4d4d4;
+  pointer-events: none;
+  position: fixed;
+  z-index: 500;
+}
+
