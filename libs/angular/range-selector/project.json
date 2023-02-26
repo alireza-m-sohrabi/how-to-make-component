@@ -1,0 +1,50 @@
+{
+  "name": "angular-range-selector",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/angular/range-selector/src",
+  "prefix": "how-to-make",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/angular/range-selector/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/angular/range-selector/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/angular/range-selector/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/angular/range-selector/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/angular/range-selector/**/*.ts",
+          "libs/angular/range-selector/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

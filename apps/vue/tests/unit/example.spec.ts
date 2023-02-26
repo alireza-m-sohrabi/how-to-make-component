@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import HelloWorld from '../../src/components/HelloWorld.vue';
 
-describe('HelloWorld.vue', () => {
+describe('RangeSelector.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message';
     const wrapper = shallowMount(HelloWorld, {

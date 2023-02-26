@@ -1,11 +1,11 @@
 import * as React from 'react';
-import BoxSelector from "./box-selector/box-selector";
+import RangeSelectorExample from "./range-selector-example/range-selector-example";
 
 export function App() {
 
   return (
     <>
-      <BoxSelector></BoxSelector>
+      <RangeSelectorExample></RangeSelectorExample>
     </>
 
   );

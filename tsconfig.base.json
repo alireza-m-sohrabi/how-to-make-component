@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@how-to-make/react/range-selector": [
+        "libs/react/range-selector/src/index.ts"
+      ],
+      "@how-to-make/text": ["libs/text/src/index.ts"],
+      "@how-to-make/vue/range-selector": [
+        "libs/vue/range-selector/src/index.ts"
+      ],
+      "dist": ["libs/react/range-selector/src/index.ts"],
+      "dist/angular/range-selector": [
+        "libs/angular/range-selector/src/index.ts"
+      ],
+      "dist/range-selector": ["libs/react/range-selector/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

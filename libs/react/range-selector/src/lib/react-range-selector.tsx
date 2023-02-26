@@ -1,27 +1,27 @@
-import styles from './box-range-selector.module.scss';
+import styles from './react-range-selector.module.scss';
 import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 
 
-export interface BoxRectanglePosition {
+export interface RectanglePosition {
   left: number;
   top: number;
 }
 
-export interface CurrentBoxRectanglePosition extends BoxRectanglePosition {
+export interface CurrentRectanglePosition extends RectanglePosition {
   width: number;
   height: number;
 }
 
 /* eslint-disable-next-line */
-export interface BoxRangeSelectorProps {
+export interface ReactRangeSelectorProps {
   boundary?: HTMLElement
 }
 
-export function BoxRangeSelector(props: BoxRangeSelectorProps) {
-  const initialPosition = useRef<BoxRectanglePosition>();
+export function ReactRangeSelector(props: ReactRangeSelectorProps) {
+  const initialPosition = useRef<RectanglePosition>();
   const [visible, setVisible] = useState<boolean>(false);
-  const [currentPosition, setCurrentPosition] = useState<CurrentBoxRectanglePosition>();
+  const [currentPosition, setCurrentPosition] = useState<CurrentRectanglePosition>();
 
   function extendRectangle(xCoordinate: number, yCoordinate: number) {
     if (initialPosition.current) {
@@ -95,4 +95,4 @@ export function BoxRangeSelector(props: BoxRangeSelectorProps) {
 
 }
 
-export default BoxRangeSelector;
+export default ReactRangeSelector;
