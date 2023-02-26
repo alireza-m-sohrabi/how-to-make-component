@@ -1,17 +1,8 @@
 import styles from './react-range-selector.module.scss';
 import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
+import {extendRectangle, RectangleCoordinate, RectanglePointPosition} from "../../../../shared/range-selector/range-selector";
 
-
-export interface RectanglePosition {
-  left: number;
-  top: number;
-}
-
-export interface CurrentRectanglePosition extends RectanglePosition {
-  width: number;
-  height: number;
-}
 
 /* eslint-disable-next-line */
 export interface ReactRangeSelectorProps {
@@ -19,49 +10,14 @@ export interface ReactRangeSelectorProps {
 }
 
 export function ReactRangeSelector(props: ReactRangeSelectorProps) {
-  const initialPosition = useRef<RectanglePosition>();
+  const fixedPosition = useRef<RectanglePointPosition>();
   const [visible, setVisible] = useState<boolean>(false);
-  const [currentPosition, setCurrentPosition] = useState<CurrentRectanglePosition>();
-
-  function extendRectangle(xCoordinate: number, yCoordinate: number) {
-    if (initialPosition.current) {
-      const height = Math.abs(yCoordinate - initialPosition.current.top);
-      const width = Math.abs(xCoordinate - initialPosition.current.left);
-      let top = 0;
-      let left = 0;
-
-      if (xCoordinate < initialPosition.current.left) {
-        left = xCoordinate;
-      } else {
-        left = initialPosition.current.left;
-      }
-
-      if (yCoordinate < initialPosition.current.top) {
-        top = yCoordinate;
-      } else {
-        top = initialPosition.current.top;
-      }
-
-      setCurrentPosition({
-        height,
-        width,
-        top,
-        left
-      });
-    } else {
-      initialPosition.current = {
-        left: xCoordinate,
-        top: yCoordinate,
-      };
-
-      setVisible(true);
-    }
-  }
+  const [rectangleCoordinate, setRectangleCoordinate] = useState<RectangleCoordinate>();
 
   useEffect(() => {
     function clear() {
-      initialPosition.current = undefined;
-      setCurrentPosition(undefined);
+      fixedPosition.current = undefined;
+      setRectangleCoordinate(undefined);
       setVisible(false);
     }
 
@@ -71,7 +27,16 @@ export function ReactRangeSelector(props: ReactRangeSelectorProps) {
     }
 
     function onMouseMove(event: any) {
-      extendRectangle(event.pageX, event.pageY);
+      if (fixedPosition.current) {
+        setRectangleCoordinate(extendRectangle(fixedPosition.current, {top: event.pageY, left: event.pageX}));
+      } else {
+        fixedPosition.current = {
+          left: event.pageX,
+          top: event.pageY,
+        };
+
+        setVisible(true);
+      }
     }
 
     function onMouseUp() {
@@ -91,7 +56,7 @@ export function ReactRangeSelector(props: ReactRangeSelectorProps) {
   }, [props.boundary]);
 
   return createPortal(visible ?
-    <div style={currentPosition} className={styles['container']}></div> : undefined, document.body);
+    <div style={rectangleCoordinate} className={styles['container']}></div> : undefined, document.body);
 
 }
 
