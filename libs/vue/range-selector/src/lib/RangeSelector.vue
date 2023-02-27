@@ -1,16 +1,15 @@
 <template>
-  <Teleport to="body">
+  <Teleport top="body">
     <div class="container" v-if="show"></div>
   </Teleport>
 </template>
 
 <script setup lang="ts">
 import {extendRectangle, RectangleCoordinate, RectanglePointPosition} from "@how-to-make/shared/range-selector";
-import {useRef} from "react";
-import {onMounted, onUnmounted} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 
-const show = useRef(false);
-const rectangleCoordinate = useRef<RectangleCoordinate>()
+const show = ref(false);
+const rectangleCoordinate = ref<RectangleCoordinate>()
 let fixedPoint: RectanglePointPosition | undefined;
 
 function onMouseDown() {
@@ -24,11 +23,11 @@ function onMouseDown() {
     const {pageX, pageY} = event;
 
     if (fixedPoint) {
-      rectangleCoordinate.current = extendRectangle(fixedPoint, {left: pageX, top: pageY});
+      rectangleCoordinate.value = extendRectangle(fixedPoint, {left: pageX, top: pageY});
 
     } else {
       fixedPoint = {top: pageY, left: pageX};
-      show.current = true;
+      show.value = true;
     }
   }
 
@@ -37,7 +36,7 @@ function onMouseDown() {
 }
 
 function clear() {
-  show.current = false;
+  show.value = false;
   fixedPoint = undefined;
 }
 
