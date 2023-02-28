@@ -1,2 +1,2 @@
-import HelloWorld from './lib/RangeSelector.vue';
-export { HelloWorld };
+import RangeSelector from './lib/VueRangeSelector.vue';
+export { RangeSelector };

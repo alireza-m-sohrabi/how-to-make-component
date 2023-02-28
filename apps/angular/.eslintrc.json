@@ -9,7 +9,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "howToMake",
+            "prefix": "angular",
             "style": "camelCase"
           }
         ],
@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "how-to-make",
+            "prefix": "angular",
             "style": "kebab-case"
           }
         ]

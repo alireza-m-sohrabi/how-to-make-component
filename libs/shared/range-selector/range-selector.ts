@@ -1,11 +1,11 @@
-export interface RectanglePointPosition {
-  left: number;
-  top: number;
+export interface RectanglePointPosition<T = number> {
+  left: T;
+  top: T;
 }
 
-export interface RectangleCoordinate extends RectanglePointPosition {
-  width: number;
-  height: number;
+export interface RectangleCoordinate<T = number> extends RectanglePointPosition<T> {
+  width: T;
+  height: T;
 }
 
 export function extendRectangle(fixedPoint: RectanglePointPosition, mobilePoint: RectanglePointPosition): RectangleCoordinate | undefined {

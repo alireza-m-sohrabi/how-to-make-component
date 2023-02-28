@@ -1,7 +1,11 @@
 import styles from './react-range-selector.module.scss';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {createPortal} from "react-dom";
-import {extendRectangle, RectangleCoordinate, RectanglePointPosition} from "../../../../shared/range-selector/range-selector";
+import {
+  extendRectangle,
+  RectangleCoordinate,
+  RectanglePointPosition
+} from "../../../../shared/range-selector/range-selector";
 
 
 /* eslint-disable-next-line */
@@ -10,27 +14,23 @@ export interface ReactRangeSelectorProps {
 }
 
 export function ReactRangeSelector(props: ReactRangeSelectorProps) {
-  const fixedPosition = useRef<RectanglePointPosition>();
   const [visible, setVisible] = useState<boolean>(false);
   const [rectangleCoordinate, setRectangleCoordinate] = useState<RectangleCoordinate>();
 
   useEffect(() => {
-    function clear() {
-      fixedPosition.current = undefined;
-      setRectangleCoordinate(undefined);
-      setVisible(false);
-    }
+    let fixedPosition: RectanglePointPosition | undefined;
+
 
     function onMouseDown() {
       window.addEventListener('mouseup', onMouseUp);
       window.addEventListener('mousemove', onMouseMove);
     }
 
-    function onMouseMove(event: any) {
-      if (fixedPosition.current) {
-        setRectangleCoordinate(extendRectangle(fixedPosition.current, {top: event.pageY, left: event.pageX}));
+    function onMouseMove(event: MouseEvent) {
+      if (fixedPosition) {
+        setRectangleCoordinate(extendRectangle(fixedPosition, {top: event.pageY, left: event.pageX}));
       } else {
-        fixedPosition.current = {
+        fixedPosition = {
           left: event.pageX,
           top: event.pageY,
         };
@@ -43,6 +43,12 @@ export function ReactRangeSelector(props: ReactRangeSelectorProps) {
       window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('mousemove', onMouseMove);
       clear();
+    }
+
+    function clear() {
+      fixedPosition = undefined;
+      setRectangleCoordinate(undefined);
+      setVisible(false);
     }
 
     const boundary = props.boundary || window;

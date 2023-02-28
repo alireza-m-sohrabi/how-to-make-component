@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import RangeSelector from "libs/vue/range-selector/src/lib/RangeSelector.vue";
+import RangeSelector from "libs/vue/range-selector/src/lib/VueRangeSelector.vue";
 
 
 </script>

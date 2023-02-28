@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '../../src/lib/RangeSelector.vue';
+import HelloWorld from '../../src/lib/HelloWorld.vue';
 
-describe('RangeSelector.vue', () => {
+describe('HelloWorld.vue', () => {
   it('renders welcome message', () => {
     const wrapper = shallowMount(HelloWorld);
     expect(wrapper.text()).toMatch(
