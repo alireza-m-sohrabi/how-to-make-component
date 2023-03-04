@@ -33,3 +33,29 @@ export function extendRectangle(fixedPoint: RectanglePointPosition, mobilePoint:
     left
   };
 }
+
+export function haveIntersection(targetOne: RectangleCoordinate, targetTwo: RectangleCoordinate) {
+  let haveIntersection = true;
+
+ const targetOneTop = targetOne.top;
+ const targetOneBottom = targetOne.top + targetOne.height;
+ const targetOneLeft = targetOne.left;
+ const targetOneRight = targetOne.left + targetOne.width;
+
+  const targetTwoTop = targetTwo.top;
+  const targetTwoBottom = targetTwo.top + targetTwo.height;
+  const targetTwoLeft = targetTwo.left;
+  const targetTwoRight = targetTwo.left + targetTwo.width;
+
+
+
+  if (!(targetOneTop > targetTwoBottom && targetTwoTop > targetOneBottom)) {
+    haveIntersection = false;
+  }
+
+  if (!(targetOneLeft > targetTwoRight && targetTwoLeft > targetOneRight)) {
+    haveIntersection = false
+  }
+
+  return haveIntersection;
+}

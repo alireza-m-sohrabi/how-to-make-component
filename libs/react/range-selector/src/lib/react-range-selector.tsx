@@ -10,7 +10,8 @@ import {
 
 /* eslint-disable-next-line */
 export interface ReactRangeSelectorProps {
-  boundary?: HTMLElement
+  boundary?: HTMLElement,
+  
 }
 
 export function ReactRangeSelector(props: ReactRangeSelectorProps) {
