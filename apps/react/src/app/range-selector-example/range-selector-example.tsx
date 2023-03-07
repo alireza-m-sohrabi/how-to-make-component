@@ -10,7 +10,6 @@ export interface BoxSelectorProps {
 export function RangeSelectorExample(props: BoxSelectorProps) {
 
   const onIntersectionChange = useCallback((event: RangeSelectorIntersectionChangeEvent) => {
-    console.log('check')
       if (event.haveIntersection) {
         event.node.classList.add(styles['--active']);
       } else {

@@ -66,6 +66,14 @@ export function haveIntersection(targetOne: Pick<DOMRect, 'top' | 'bottom' | 'le
   return haveIntersectionVertically && haveIntersectionHorizontally;
 }
 
+export interface RangeSelectorProps {
+  boundary?: HTMLElement,
+  intersectionElementSelector: string;
+}
+
+export interface RangeSelectorEvents {
+  intersectionChange: (event: RangeSelectorIntersectionChangeEvent) => void;
+}
 
 export function handleHavingIntersection(intersections: NodeListOf<Element>,
                                          callbackAfterCheckingIntersection: (event: RangeSelectorIntersectionChangeEvent) => void): (growingArea: RectangleCoordinate) => void {

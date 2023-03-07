@@ -5,13 +5,30 @@
 </template>
 
 <script setup lang="ts">
-import {extendRectangle, RectangleCoordinate, RectanglePointPosition} from "@how-to-make/shared/range-selector";
+import {
+  extendRectangle, handleHavingIntersection, RangeSelectorEvents, RangeSelectorIntersectionChangeEvent,
+  RangeSelectorProps,
+  RectangleCoordinate,
+  RectanglePointPosition
+} from "@how-to-make/shared/range-selector";
 import {onMounted, onUnmounted, ref} from "vue";
 
+/* eslint-disable-next-line */
+
+const props = defineProps<{
+  boundary?: HTMLElement,
+  intersectionElementSelector: string;
+}>();
+const emit = defineEmits<{
+  intersectionChange: (event: RangeSelectorIntersectionChangeEvent) => void;
+}>();
+
+
+debugger
 let fixedPoint: RectanglePointPosition | undefined;
 const show = ref(false);
 const styleObject = ref<RectangleCoordinate<string>>();
-
+let handleIntersectionWhenAreaGrows: (growingArea: RectangleCoordinate) => void | undefined;
 
 function onMouseDown() {
 
@@ -24,8 +41,11 @@ function onMouseDown() {
   function onMouseMove(event: { pageX: number, pageY: number }) {
     const {pageX, pageY} = event;
 
+
     if (fixedPoint) {
       const coordinate = extendRectangle(fixedPoint, {left: pageX, top: pageY});
+      handleIntersectionWhenAreaGrows?.(coordinate);
+
       if (coordinate) {
         styleObject.value = {
           height: coordinate.height + 'px',
@@ -53,6 +73,16 @@ function clear() {
 
 onMounted(() => {
   window.addEventListener('mousedown', onMouseDown);
+  if (props.intersectionElementSelector) {
+    const intersection = document.querySelectorAll(props.intersectionElementSelector);
+
+    if (intersection) {
+      handleIntersectionWhenAreaGrows = handleHavingIntersection(intersection, (event: RangeSelectorIntersectionChangeEvent) => {
+        emit('intersectionChange', event);
+      })
+    }
+
+  }
 });
 
 onUnmounted(() => {

@@ -3,20 +3,13 @@ import
 import {useEffect, useState} from "react";
 import {createPortal} from "react-dom";
 import {
-  extendRectangle, handleHavingIntersection, RangeSelectorIntersectionChangeEvent,
+  extendRectangle, handleHavingIntersection, RangeSelectorEvents, RangeSelectorProps,
   RectangleCoordinate,
   RectanglePointPosition,
 } from "../../../../shared/range-selector";
 
 
-/* eslint-disable-next-line */
-export interface ReactRangeSelectorProps {
-  boundary?: HTMLElement,
-  intersectionElementSelector: string;
-  intersectionChange: (event: RangeSelectorIntersectionChangeEvent) => void;
-}
-
-export function ReactRangeSelector(props: ReactRangeSelectorProps) {
+export function ReactRangeSelector(props: RangeSelectorProps & RangeSelectorEvents) {
   const [visible, setVisible] = useState<boolean>(false);
   const [rectangleCoordinate, setRectangleCoordinate] = useState<RectangleCoordinate>();
 

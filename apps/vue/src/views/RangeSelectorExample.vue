@@ -5,14 +5,21 @@
       <div class="box-item"></div>
       <div class="box-item"></div>
     </div>
-    <RangeSelector />
+    <RangeSelector intersection-element-selector=".box-item" @intersectionChange="($event)=> onIntersectionChange($event)"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import RangeSelector from "libs/vue/range-selector/src/lib/VueRangeSelector.vue";
+import {RangeSelectorIntersectionChangeEvent} from "@how-to-make/shared/range-selector";
 
-
+const onIntersectionChange = (event: RangeSelectorIntersectionChangeEvent) => {
+  if (event.haveIntersection) {
+    event.node.classList.add('--active');
+  } else {
+    event.node.classList.remove('--active');
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -34,6 +41,10 @@ import RangeSelector from "libs/vue/range-selector/src/lib/VueRangeSelector.vue"
   background: #e0e0e0;
   margin: 8px;
   opacity: 0.8;
+}
+
+.--active {
+  background-color: #00BCD4;
 }
 
 </style>
